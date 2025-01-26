@@ -1,5 +1,7 @@
+#!/usr/bin/python3
+
 # Main functions file
-# (C) Lars Eissink 2023
+# Author: Lars Eissink 2023
 
 import re
 import requests

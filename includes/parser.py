@@ -1,6 +1,8 @@
-# Parser files
+#!/usr/bin/python3
+
+#Parser files
 # This file parses commands. ... And thats about it. I think it's beautiful
-# (C) Lars Eissink 2023
+# Author: Lars Eissink 2023
 
 import argparse
 
