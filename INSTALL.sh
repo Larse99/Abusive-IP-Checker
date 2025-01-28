@@ -30,7 +30,7 @@ sudo ln -sf "$INSTALL_DIR/scan.py" "$BIN_DIR/$EXECUTABLE_NAME"
 # Verify installation
 if [ -x "$BIN_DIR/$EXECUTABLE_NAME" ]; then
     echo -e "${GREEN}Installation successful! You can now use '${EXECUTABLE_NAME}' from anywhere.${RESET}"
-    echo -e "${GREEN}Don't forget to add your AbuseIPDB API key to ${INSTALL_DIR}/${APP_NAME}, in order to check IPs!"
+    echo -e "${GREEN}Don't forget to add your AbuseIPDB API key to ${INSTALL_DIR}/scan.py, in order to check IPs!"
 else
     echo "Installation failed. Please check for errors."
     exit 1
