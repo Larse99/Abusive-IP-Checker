@@ -5,6 +5,7 @@
 
 import re
 import requests
+import sys
 
 def check_ip(ip_address):
     # IPv4 pattern and regular expression match
@@ -49,7 +50,7 @@ def check_score(api=None, ip_address=None, extended=False, json=False):
     # If the response is not 200, exit
     if response.status_code != 200:
         print('Connection to AbuseIPDB failed. Please check your API key!')
-        quit()
+        sys.exit(1)
 
     # Check if user requested extended information
     if extended == True:
@@ -59,14 +60,39 @@ def check_score(api=None, ip_address=None, extended=False, json=False):
         print(f'Domain: {data["data"]["domain"]}')
         print(f'ISP: {data["data"]["isp"]}')
         print(f'Country: {data["data"]["countryCode"]}')
-        print(f'Abuse Score: {data["data"]["abuseConfidenceScore"]} Reported: {data["data"]["totalReports"]} times.')
+        print(f'Abuse Score: {data["data"]["abuseConfidenceScore"]} Reported: {data["data"]["totalReports"]} times.\n')
     
     if extended == False and json == False:
         data = response.json()
         print(f'IP Address: {data["data"]["ipAddress"]}')
         print(f'Abuse Score: {data["data"]["abuseConfidenceScore"]}')
-        print(f'Country: {data["data"]["countryCode"]}')
+        print(f'Country: {data["data"]["countryCode"]}\n')
     
     if json == True:
         data = response.json()
         print(data)
+
+# Read IP addresses from file and checks the score of each
+def read_from_file(api, file_path, extended=False, json=False):
+    try:
+        with open(file_path, 'r') as file:
+            for line in file:
+                ip = line.strip()
+
+                if not check_ip(ip):
+                    print(f'Entered IP is invalid: {ip}\n')
+                    sys.exit(1)
+
+                check_score(api, ip, extended, json)
+    except FileNotFoundError:
+        print(f'Error: File not found: {file_path}', file=sys.stderr)
+        sys.exit(1)
+    except PermissionError:
+        print(f'Error: Incorrect permissions: {file_path}', file=sys.stderr)
+        sys.exit(1)
+    except OSError as e:
+        print(f'Error while opening the file: {file_path}: {e}', file=sys.stderr)
+        sys.exit(1)
+    except Exception as e:
+        print(f'Unexpected error: {e}', file=sys.stderr)
+        sys.exit(1)
