@@ -25,6 +25,7 @@ This utility is straightforward to use. Run `ipcheck -h` to see all available op
 
 ```bash
 # Arguments in '[]' indicate either option can be used (e.g., --ip or -i).
+# Either -i or -f can be combined with --extended or --json.
 
 # Check the reputation of an IP address
 ipcheck [-i /  --ip] <ip>
@@ -35,8 +36,26 @@ ipcheck  -i  <ip> [-e /  --extended]
 # Output the results as JSON
 ipcheck [-i /  --ip] <ip>  [-j / --json]
 
+# Use a file as input
+ipcheck [-f / --file] <file>
+
 # Show help
 ipcheck [-h /  --help]
+```
+
+### Example file usage
+```txt
+66.249.76.162
+66.249.76.161
+66.249.76.160
+66.249.76.164
+66.249.76.165
+66.249.76.163
+66.249.76.166
+66.249.76.167
+66.249.76.168
+66.249.76.169
+66.249.76.170
 ```
 
 ## License
